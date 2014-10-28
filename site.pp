@@ -40,14 +40,10 @@ node default {
   # Example:
   #   class { 'my_class': }
   include users
+  include htop
 
   group { 'sysadmin':
     ensure => present,
   }
-
-  package { 'htop':
-    ensure => installed,
-  }
-
 }
 
