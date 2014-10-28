@@ -51,6 +51,9 @@ node default {
     managehome => true,
   }
 
-  notify { "Hello ${fqdn}": }
+  package { 'htop':
+    ensure => installed,
+  }
+
 }
 
