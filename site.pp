@@ -39,16 +39,10 @@ node default {
   # This is where you can declare classes for all nodes.
   # Example:
   #   class { 'my_class': }
+  include users
 
   group { 'sysadmin':
     ensure => present,
-  }
-
-  user { 'elmo':
-    ensure     => present,
-    gid        => 'sysadmin',
-    home       => '/home/elmo',
-    managehome => true,
   }
 
   package { 'htop':
