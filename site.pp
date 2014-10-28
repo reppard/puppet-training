@@ -39,6 +39,14 @@ node default {
   # This is where you can declare classes for all nodes.
   # Example:
   #   class { 'my_class': }
+
+  user { 'elmo':
+    ensure     => present,
+    gid        => 'sysadmin',
+    home       => '/home/elmo',
+    managehome => true,
+  }
+
   notify { "Hello ${fqdn}": }
 }
 
