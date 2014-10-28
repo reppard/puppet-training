@@ -40,6 +40,10 @@ node default {
   # Example:
   #   class { 'my_class': }
 
+  group { 'sysadmin':
+    ensure => present,
+  }
+
   user { 'elmo':
     ensure     => present,
     gid        => 'sysadmin',
