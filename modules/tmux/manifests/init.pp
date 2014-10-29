@@ -5,9 +5,12 @@ class tmux{
   }
   ->
   file { '.tmux.conf':
+    ensure =>  file,
     path   => '/root/.tmux.conf',
     source => '/tmp/tmux.conf',
-    ensure =>  present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0440',
   }
 
   package { 'tmux':
