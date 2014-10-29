@@ -40,6 +40,13 @@ node default {
 }
 
 node 'reppard.puppetlabs.vm' {
+  notify { 'this is an exact string match':}
+  include users
+  include htop
+}
+
+node /reppard\.*\.vm/ {
+  notify { 'this is a regex match':}
   include users
   include htop
 }
