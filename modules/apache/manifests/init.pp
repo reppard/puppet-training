@@ -1,7 +1,6 @@
 class apache {
   package { 'httpd':
     ensure => installed,
-    before => Service['httpd'],
   }
 
   file { '/var/www':
@@ -21,11 +20,11 @@ class apache {
     ensure  => file,
     source  => 'puppet:///modules/apache/httpd.conf',
     require => Package['httpd'],
+    notify  => Service['httpd'],
   }
 
   service { 'httpd':
     ensure    => running,
     enable    => true,
-    subscribe => File['/etc/httpd/conf/httpd.conf'],
   }
 }
