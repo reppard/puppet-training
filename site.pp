@@ -39,7 +39,7 @@ node default {
   notify { "Hey ${::ifqdn} node isn't defined!  Define your nodes shit head!!":}
 }
 
-node 'reppard.puppetlabs.mv' {
+node 'reppard.puppetlabs.vm' {
   include users
   include htop
 }
