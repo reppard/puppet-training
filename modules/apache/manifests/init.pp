@@ -1,4 +1,11 @@
 class apache {
+  File {
+    ensure => file,
+    owner => 'apache',
+    group => 'apache',
+    mode  => '0644',
+  }
+
   package { 'httpd':
     ensure => installed,
   }
@@ -12,12 +19,12 @@ class apache {
   }
 
   file { '/var/www/html/index.html':
-    ensure => file,
     source => 'puppet:///modules/apache/index.html',
   }
 
   file { '/etc/httpd/conf/httpd.conf':
-    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
     source  => 'puppet:///modules/apache/httpd.conf',
     require => Package['httpd'],
     notify  => Service['httpd'],
