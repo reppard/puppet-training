@@ -1,4 +1,8 @@
 class users {
+  group { 'sysadmin':
+    ensure => present,
+  }
+
   user { 'fundementals':
     ensure     => present,
     managehome => true,
