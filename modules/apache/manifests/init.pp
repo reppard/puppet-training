@@ -44,8 +44,8 @@ class apache {
     owner   => 'root',
     group   => 'root',
     source  => "puppet:///modules/apache/${httpd_conf}",
-    require => Package['httpd'],
-    notify  => Service['httpd'],
+    require => Package[$httpd_pkg],
+    notify  => Service[$httpd_svc],
   }
 
   service { $httpd_svc:
