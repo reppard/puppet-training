@@ -36,7 +36,10 @@ File { backup => 'main' }
 # specified in the console for that node.
 
 node default {
+  notify { "Hey ${::ifqdn} node isn't defined!  Define your nodes shit head!!":}
+}
+
+node 'reppard.puppetlabs.mv' {
   include users
   include htop
 }
-
