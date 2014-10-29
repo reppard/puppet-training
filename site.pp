@@ -41,6 +41,7 @@ node default {
 
 node 'reppard.puppetlabs.vm' {
   notify { 'this is an exact string match':}
+  include hosts
   include tmux
   include users
   include htop
