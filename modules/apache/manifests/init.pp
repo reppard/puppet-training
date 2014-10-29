@@ -1,13 +1,14 @@
 class apache {
   case $::osfamily {
     'redhat':{
-      $httpd_user    = 'apache'
-      $httpd_group   = 'apache'
-      $httpd_pkg     = 'httpd'
-      $httpd_svc     = 'httpd'
-      $httpd_conf    = 'httpd.conf'
-      $httpd_confdir = '/etc/httpd/conf'
-      $httpd_docroot = '/var/www/html'
+      $httpd_user     = 'apache'
+      $httpd_group    = 'apache'
+      $httpd_pkg      = 'httpd'
+      $httpd_svc      = 'httpd'
+      $httpd_conf     = 'httpd.conf'
+      $httpd_confdir  = '/etc/httpd/conf'
+      $httpd_docroot  = '/var/www/html'
+      $httpd_dirs     = ['/var/www','/var/www/html']
     }
     'debian':{
       $httpd_user    = 'www-data'
@@ -17,6 +18,7 @@ class apache {
       $httpd_conf    = 'apache2.conf'
       $httpd_confdir = '/etc/apache2'
       $httpd_docroot = '/var/www'
+      $httpd_dirs    = '/var/www'
     }
     default: { fail("Your system is not supported.\n")}
   }
@@ -32,7 +34,7 @@ class apache {
     ensure => installed,
   }
 
-  file { ['/var/www', '/var/www/html']:
+  file { $httpd_dirs:
     ensure => directory,
   }
 
