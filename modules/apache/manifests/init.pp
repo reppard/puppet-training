@@ -1,12 +1,34 @@
 class apache {
+  case $::osfamily {
+    'redhat':{
+      $httpd_user    = 'apache'
+      $httpd_group   = 'apache'
+      $httpd_pkg     = 'httpd'
+      $httpd_svc     = 'httpd'
+      $httpd_conf    = 'httpd.conf'
+      $httpd_confdir = '/etc/httpd/conf'
+      $httpd_docroot = '/var/www/html'
+    }
+    'debian':{
+      $httpd_user    = 'www-data'
+      $httpd_group   = 'www-data'
+      $httpd_pkg     = 'apache2'
+      $httpd_svc     = 'apache2'
+      $httpd_conf    = 'apache2.conf'
+      $httpd_confdir = '/etc/apache2'
+      $httpd_docroot = '/var/www'
+    }
+    default: { fail("Your system is not supported.\n")}
+  }
+
   File {
     ensure => file,
-    owner  => 'apache',
-    group  => 'apache',
+    owner  => $httpd_user,
+    group  => $httpd_group,
     mode   => '0644',
   }
 
-  package { 'httpd':
+  package { $httpd_pkg:
     ensure => installed,
   }
 
@@ -14,19 +36,19 @@ class apache {
     ensure => directory,
   }
 
-  file { '/var/www/html/index.html':
+  file { "${httpd_docroot}/index.html":
     source => 'puppet:///modules/apache/index.html',
   }
 
-  file { '/etc/httpd/conf/httpd.conf':
+  file { "${httpd_confdir}/${httpd_conf}":
     owner   => 'root',
     group   => 'root',
-    source  => 'puppet:///modules/apache/httpd.conf',
+    source  => "puppet:///modules/apache/${httpd_conf}",
     require => Package['httpd'],
     notify  => Service['httpd'],
   }
 
-  service { 'httpd':
+  service { $httpd_svc:
     ensure => running,
     enable => true,
   }
