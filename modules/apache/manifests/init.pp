@@ -1,9 +1,9 @@
 class apache {
   File {
     ensure => file,
-    owner => 'apache',
-    group => 'apache',
-    mode  => '0644',
+    owner  => 'apache',
+    group  => 'apache',
+    mode   => '0644',
   }
 
   package { 'httpd':
@@ -31,7 +31,7 @@ class apache {
   }
 
   service { 'httpd':
-    ensure    => running,
-    enable    => true,
+    ensure => running,
+    enable => true,
   }
 }
