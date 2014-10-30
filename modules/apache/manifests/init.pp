@@ -25,6 +25,10 @@ class apache (
     ensure => directory,
   }
 
+  file { $docroot:
+    ensure => directory,
+  }
+
   file { "${docroot}/index.html":
     content => template('apache/index.html.erb'),
   }
