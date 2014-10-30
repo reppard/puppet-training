@@ -20,7 +20,7 @@ class apache {
       $httpd_docroot = '/var/www'
       $httpd_dirs    = '/var/www'
     }
-    default: { fail("Your system is not supported.\n")}
+    default: { fail("Your ${::osfamily} system is not supported.\n")}
   }
 
   File {
@@ -39,7 +39,7 @@ class apache {
   }
 
   file { "${httpd_docroot}/index.html":
-    source => 'puppet:///modules/apache/index.html',
+    content => template('apache/index.html.erb'),
   }
 
   file { "${httpd_confdir}/${httpd_conf}":
