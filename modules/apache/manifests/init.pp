@@ -1,38 +1,22 @@
 class apache (
-    $documentroot = '/var/www/html',
-  ){
-  case $::osfamily {
-    'redhat':{
-      $httpd_user     = 'apache'
-      $httpd_group    = 'apache'
-      $httpd_pkg      = 'httpd'
-      $httpd_svc      = 'httpd'
-      $httpd_conf     = 'httpd.conf'
-      $httpd_confdir  = '/etc/httpd/conf'
-      $httpd_docroot  = '/var/www/html'
-      $httpd_dirs     = ['/var/www','/var/www/html']
-    }
-    'debian':{
-      $httpd_user    = 'www-data'
-      $httpd_group   = 'www-data'
-      $httpd_pkg     = 'apache2'
-      $httpd_svc     = 'apache2'
-      $httpd_conf    = 'apache2.conf'
-      $httpd_confdir = '/etc/apache2'
-      $httpd_docroot = '/var/www'
-      $httpd_dirs    = '/var/www'
-    }
-    default: { fail("Your ${::osfamily} system is not supported.\n")}
-  }
+    $user    = "${apache::params::httpd_user}",
+    $group   = "${apache::params::httpd_group}",
+    $pkg     = "${apache::params::httpd_pkg}",
+    $svc     = "${apache::params::httpd_svc}",
+    $conf    = "${apache::params::httpd_conf}",
+    $confdir = "${apache::params::httpd_confdir}",
+    $docroot = "${apache::params::httpd_docroot}",
+    $dirs    = "${apache::params::http_dirs}",
+  ) inherits apache::params {
 
   File {
     ensure => file,
-    owner  => $httpd_user,
-    group  => $httpd_group,
+    owner  => $user,
+    group  => $group,
     mode   => '0644',
   }
 
-  package { $httpd_pkg:
+  package { $pkg:
     ensure => installed,
   }
 
@@ -40,19 +24,19 @@ class apache (
     ensure => directory,
   }
 
-  file { "${documentroot}/index.html":
+  file { "${docroot}/index.html":
     content => template('apache/index.html.erb'),
   }
 
-  file { "${httpd_confdir}/${httpd_conf}":
+  file { "${confdir}/${conf}":
     owner   => 'root',
     group   => 'root',
-    source  => "puppet:///modules/apache/${httpd_conf}",
-    require => Package[$httpd_pkg],
-    notify  => Service[$httpd_svc],
+    source  => "puppet:///modules/apache/${conf}",
+    require => Package[$pkg],
+    notify  => Service[$svc],
   }
 
-  service { $httpd_svc:
+  service { $svc:
     ensure => running,
     enable => true,
   }
