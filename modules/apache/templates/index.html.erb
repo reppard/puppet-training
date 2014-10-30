@@ -3,6 +3,9 @@
     <title>Puppet Training - <%= @fqdn %></title>
   </head>
   <body>
+    <% if @vhost then -%>
+      <h2>Coming to you live from <%= @vhost %></h2>
+    <% end -%>
     <p>Hey Dude.</p>
     <h2>Sytem Stats</h2>
     <pre>

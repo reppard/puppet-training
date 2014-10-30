@@ -1,12 +1,13 @@
 class apache (
-    $user    = $apache::params::httpd_user,
-    $group   = $apache::params::httpd_group,
-    $pkg     = $apache::params::httpd_pkg,
-    $svc     = $apache::params::httpd_svc,
-    $conf    = $apache::params::httpd_conf,
-    $confdir = $apache::params::httpd_confdir,
-    $docroot = $apache::params::httpd_docroot,
-    $dirs    = $apache::params::http_dirs,
+    $user      = $apache::params::httpd_user,
+    $group     = $apache::params::httpd_group,
+    $pkg       = $apache::params::httpd_pkg,
+    $svc       = $apache::params::httpd_svc,
+    $conf      = $apache::params::httpd_conf,
+    $confdir   = $apache::params::httpd_confdir,
+    $docroot   = $apache::params::httpd_docroot,
+    $dirs      = $apache::params::httpd_dirs,
+    $vhost_dir = $apache::params::vhost_dir,
   ) inherits apache::params {
 
   File {
@@ -20,7 +21,7 @@ class apache (
     ensure => installed,
   }
 
-  file { $httpd_dirs:
+  file { $dirs:
     ensure => directory,
   }
 

@@ -1,0 +1,11 @@
+NameVirtualHost <%= @vhost %>:80
+
+<VirtualHost  <%= @vhost %>:80 >
+    ServerName <%= @vhost %>
+    ErrorLog <%= @errorlog %>
+    CustomLog <%= @accesslog %>
+    DocumentRoot <%= @docroot %>
+    <Directory <%= @docroot %>>
+      Options <%= @options %>
+    </Directory>
+</VirtualHost>
