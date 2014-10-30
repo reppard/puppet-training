@@ -4,6 +4,15 @@
   </head>
   <body>
     <p>Hey Dude.</p>
+    <h2>Sytem Stats</h2>
+    <pre>
+      Kernel:    <%= @kernelrelease %>
+      OS:        <%= @operatingsystem %>
+      Mem Total: <%= @memorysize %>
+      Mem Free:  <%= @memoryfree %>
+      IP:        <%= @ipaddress %>
+      CPU:       <%= @processor0 %>
+    </pre>
     <p>Lets print some stuff via iteration.</p>
   <% (1..10).each do |n| -%>
     <p>Iteration number <%= n %>
