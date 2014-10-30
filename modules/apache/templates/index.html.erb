@@ -3,6 +3,10 @@
     <title>Puppet Training - <%= @fqdn %></title>
   </head>
   <body>
-    Hey Dude.
+    <p>Hey Dude.</p>
+    <p>Lets print some stuff via iteration.</p>
+  <% (1..10).each do |n| -%>
+    <p>Iteration number <%= n %>
+  <% end -%>
   </body>
 </html>
