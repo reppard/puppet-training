@@ -1,12 +1,12 @@
 class apache (
-    $user    = "${apache::params::httpd_user}",
-    $group   = "${apache::params::httpd_group}",
-    $pkg     = "${apache::params::httpd_pkg}",
-    $svc     = "${apache::params::httpd_svc}",
-    $conf    = "${apache::params::httpd_conf}",
-    $confdir = "${apache::params::httpd_confdir}",
-    $docroot = "${apache::params::httpd_docroot}",
-    $dirs    = "${apache::params::http_dirs}",
+    $user    = $apache::params::httpd_user,
+    $group   = $apache::params::httpd_group,
+    $pkg     = $apache::params::httpd_pkg,
+    $svc     = $apache::params::httpd_svc,
+    $conf    = $apache::params::httpd_conf,
+    $confdir = $apache::params::httpd_confdir,
+    $docroot = $apache::params::httpd_docroot,
+    $dirs    = $apache::params::http_dirs,
   ) inherits apache::params {
 
   File {
