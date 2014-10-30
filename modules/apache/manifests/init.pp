@@ -1,4 +1,6 @@
-class apache {
+class apache (
+    $documentroot = '/var/www/html',
+  ){
   case $::osfamily {
     'redhat':{
       $httpd_user     = 'apache'
@@ -38,7 +40,7 @@ class apache {
     ensure => directory,
   }
 
-  file { "${httpd_docroot}/index.html":
+  file { "${documentroot}/index.html":
     content => template('apache/index.html.erb'),
   }
 
